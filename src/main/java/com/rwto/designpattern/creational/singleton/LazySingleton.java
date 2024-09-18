@@ -38,9 +38,9 @@ public class LazySingleton {
      * @return
      */
     public static LazySingleton getInstance03() {
-        if(null == instance){
+        if(null == instance){// 第一个判空：防止多个线程争抢锁，如果不是空，就不用锁了
             synchronized (LazySingleton.class){
-                if(null == instance){//防止重复创建对象
+                if(null == instance){//第二个判空：防止多个线程经过第一层判空，同时等待锁是否，防止重复创建对象
                     instance = new LazySingleton();
                 }
             }
